@@ -3,7 +3,6 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Header } from './components/Header';
 import { StatusCard } from './components/StatusCard';
 import { RFIDFeed } from './components/RFIDFeed';
-import { VoiceAssistant } from './components/VoiceAssistant';
 import { AppState, RFIDRead, BusStatus, BusState, TerminalConfig, HardwareHealth } from './types';
 import { DEFAULT_CONFIG, MOCK_BUSES } from './constants';
 import { getBusSummary } from './services/geminiService';
@@ -33,7 +32,7 @@ const App: React.FC = () => {
   const prevHealthStatusRef = useRef<string>('disconnected');
   const mainRef = useRef<HTMLElement>(null);
 
-  // Accessible Voice Alerts for Hardware
+  // Accessible Voice Alerts for Hardware Status (Basic Speech Synthesis)
   const announceHardwareStatus = useCallback((message: string) => {
     if (!state.config.audioAlertsEnabled) return;
     const utterance = new SpeechSynthesisUtterance(message);
@@ -46,10 +45,6 @@ const App: React.FC = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-      if (e.key.toLowerCase() === 'v') {
-        const event = new CustomEvent('toggle-voice');
-        window.dispatchEvent(event);
-      }
       if (e.key.toLowerCase() === 'm') {
         setActiveTab('monitor');
         mainRef.current?.focus();
@@ -311,8 +306,6 @@ const App: React.FC = () => {
           </div>
         )}
       </main>
-
-      <VoiceAssistant currentBus={state.currentBus} config={state.config} />
 
       <footer className="p-8 text-center text-slate-600 text-sm font-medium">
         &copy; 2024 BaySense • Precision Assistive Mobility.
