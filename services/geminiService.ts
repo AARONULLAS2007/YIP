@@ -2,10 +2,9 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { BusStatus, BusState } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 export const getBusSummary = async (status: BusStatus, terminal: string, bay: string): Promise<string> => {
   try {
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const prompt = `
       You are an assistive AI for visually impaired commuters.
       Current Context: Terminal "${terminal}", Bay "${bay}".
@@ -36,6 +35,7 @@ export const getBusSummary = async (status: BusStatus, terminal: string, bay: st
 
 export const analyzeRfidPattern = async (reads: any[]): Promise<{ confidence: number; suggestedState: BusState }> => {
   try {
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: `Analyze these RFID signal patterns and determine the bus arrival state. 

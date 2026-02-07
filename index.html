@@ -18,6 +18,11 @@
             line-height: 1.75rem;
         }
     </style>
+    <script>
+      // Shim process.env for browser environments to prevent ReferenceErrors
+      // The actual values are expected to be injected by the deployment environment
+      window.process = window.process || { env: {} };
+    </script>
 <script type="importmap">
 {
   "imports": {
@@ -31,5 +36,6 @@
 </head>
 <body class="bg-slate-950 text-slate-50 antialiased">
     <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
 </body>
 </html>
