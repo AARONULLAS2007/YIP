@@ -1,0 +1,10 @@
+{
+  "name": "BaySense - RFID Bus Assistant",
+  "description": "An AI-powered assistive system for visually impaired commuters to identify buses using UHF-RFID data and real-time processing.",
+  "requestFramePermissions": [
+    "geolocation",
+    "microphone",
+    "bluetooth",
+    "usb"
+  ]
+}
